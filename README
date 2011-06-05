@@ -1,0 +1,15 @@
+# thinkstats
+
+This is my worksheet for the Think Stats book:
+  http://greenteapress.com/thinkstats/
+
+Although the book is Python-oriented, I'm doing exercises in Clojure.
+
+Hopefully someone finds this project useful.
+
+
+## License
+
+Copyright (C) 2011 Mike Ivanov
+
+Distributed under the Eclipse Public License, the same as Clojure.
