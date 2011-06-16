@@ -6,7 +6,7 @@
                                             pregnancy-lengths)]))
 
 ;; Run it as:
-;;     lein run -m thinkstats.exercises.ex-1-3
+;;     lein run -m thinkstats.exercises.ex-2-1
 
 ;; data ----------------------------------------------------------------------
 
