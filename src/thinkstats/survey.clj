@@ -62,6 +62,21 @@
                    GZIPInputStream.
                    read-lines)))
 
-(defn read-pregnancies-table []
+(defn alive? [rec]
+  (= 1 (:outcome rec)))
+
+(defn firstborn? [rec]
+  (= 1 (:birthord rec)))
+
+(defn lengths [records]
+  (map :prglength records))
+
+(defmulti dataset (fn [& args] (or (first args) :all)))
+
+(defmethod dataset :all [& _]
   (read-resource-table preg-fields
                        "2002FemPreg.dat.gz"))
+
+(defmethod dataset :alive [& _]
+  (filter alive? (dataset :all)))
+
