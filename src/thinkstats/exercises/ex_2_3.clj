@@ -1,9 +1,7 @@
 (ns thinkstats.exercises.ex-2-3
   (:use thinkstats.stats
         clojure.contrib.generic.math-functions
-        [thinkstats.survey :only (read-pregnancies-table)]
-        [thinkstats.exercises.ex-1-3 :only (partition-firstborns
-                                            pregnancy-lengths)]))
+        [thinkstats.survey :only (dataset lengths)]))
 
 ;; Run as:
 ;;     lein run -m thinkstats.exercises.ex-2-3
@@ -22,10 +20,10 @@
   (reverse (sort-by (fn [[_ f]] f) hist)))
 
 (defn ex-2-3 []
-  (let [data  [10., 20., 20., 30., 30., 30., 50.]
+  (let [data  (lengths (dataset :alive))
         hist  (frequencies data)
         modes (all-modes hist)]
-    (println (format "Mode=%f, all modes=%s"
+    (println (format "Mode=%d, all modes=%s"
                      (mode hist)
                      (apply str (interpose ", " (map str modes)))))))
 
