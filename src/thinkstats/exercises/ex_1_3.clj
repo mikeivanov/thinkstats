@@ -1,6 +1,6 @@
 (ns thinkstats.exercises.ex-1-3
   (:use clojure.contrib.generic.math-functions
-        [thinkstats.survey :only (read-pregnancies-table)]))
+        [thinkstats.survey :only (dataset)]))
 
 ;; Run it as:
 ;;     lein run -m thinkstats.exercises.ex-1-3
@@ -29,7 +29,7 @@
 (defn partition-firstborns [records]
   (loop [firstborns []
          others     []
-         records    (filter alive? records)]
+         records    records]
     (if-let [rec (first records)]
       (if (= 1 (:birthord rec))
         (recur (cons rec firstborns) others (rest records))
@@ -37,7 +37,7 @@
       [firstborns others])))
 
 (defn ex-1-3-3 [records]
-  (let [[firstborns others] (partition-firstborns records)]
+  (let [[firstborns others] (partition-firstborns (filter alive? records))]
     (println (format "Number of firstborns=%d, other babies=%d"
                      (count firstborns)
                      (count others)))))
@@ -55,7 +55,7 @@
   (/ (reduce + t) (count t)))
 
 (defn ex-1-3-4 [records]
-  (let [[firstborns others] (partition-firstborns records)
+  (let [[firstborns others] (partition-firstborns (filter alive? records))
         mu1                 (avg (pregnancy-lengths firstborns))
         mu2                 (avg (pregnancy-lengths others))
         diff-weeks          (abs (- mu1 mu2))
@@ -71,7 +71,7 @@
 ;; ==========================================================================
 
 (defn -main []
-  (let [pregnancies (read-pregnancies-table)]
+  (let [pregnancies (dataset)]
     (ex-1-3-1 pregnancies)
     (ex-1-3-2 pregnancies)
     (ex-1-3-3 pregnancies)

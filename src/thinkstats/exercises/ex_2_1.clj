@@ -1,9 +1,7 @@
 (ns thinkstats.exercises.ex-2-1
   (:use thinkstats.stats
         clojure.contrib.generic.math-functions
-        [thinkstats.survey :only (read-pregnancies-table)]
-        [thinkstats.exercises.ex-1-3 :only (partition-firstborns
-                                            pregnancy-lengths)]))
+        [thinkstats.survey :only (dataset firstborn? lengths)]))
 
 ;; Run it as:
 ;;     lein run -m thinkstats.exercises.ex-2-1
@@ -29,15 +27,15 @@
 ;; 2.1.2 ---------------------------------------------------------------------
 ;; compute the standard deviation of gestation time for first babies and others
 
-(defn gestation-stdev [records]
-  (let [[mu var] (variance (pregnancy-lengths records))
+(defn stdev [t]
+  (let [[mu var] (variance t)
         stdev    (sqrt var)]
     stdev))
 
 (defn ex-2-1-2 []
-  (let [pregnancies   (read-pregnancies-table)
-        [f-dev o-dev] (map gestation-stdev
-                           (partition-firstborns pregnancies))
+  (let [firstborns    (group-by firstborn? (dataset :alive))
+        f-dev         (stdev (lengths (firstborns true)))
+        o-dev         (stdev (lengths (firstborns false)))
         diff          (abs (- f-dev o-dev))]
     (println (format (str "Standard deviations of gestation time:\n"
                           "   firstborns=%f\n"
