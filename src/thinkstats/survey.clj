@@ -80,3 +80,14 @@
 (defmethod dataset :alive [& _]
   (filter alive? (dataset :all)))
 
+(defn with-reasonable-preg-length? [rec]
+  (let [x (:prglength rec)]
+    (and (< 25 x) (<= x 45))))
+
+(defn pregnancy-lengths []
+  (let [records    (filter with-reasonable-preg-length? (dataset :alive))
+        firstborns (group-by firstborn? records)
+        fb         (lengths (firstborns true))
+        ob         (lengths (firstborns false))]
+    [fb ob]))
+

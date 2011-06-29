@@ -1,6 +1,6 @@
 (ns thinkstats.exercises.ex-histogram
   (:use clojure.contrib.generic.math-functions
-        [thinkstats.survey :only (dataset firstborn? lengths)])
+        [thinkstats.survey :only (pregnancy-lengths)])
   (:require [incanter.core   :as ic]
             [incanter.charts :as charts])
   (:import  (org.jfree.chart.renderer.xy ClusteredXYBarRenderer)))
@@ -13,17 +13,10 @@
         hist (charts/histogram data)]
     (ic/view hist)))
 
-(defn in-range? [rec]
-  (let [x (:prglength rec)]
-    (and (< 25 x) (<= x 45))))
-
 (defn hist-2 []
-  (let [records    (filter in-range? (dataset :alive))
-        firstborns (group-by firstborn? records)
-        fb-len     (lengths (firstborns true))
-        ob-len     (lengths (firstborns false))
-        hist       (doto (charts/histogram fb-len :legend true)
-                     (charts/add-histogram ob-len))]
+  (let [[firstborns others] (pregnancy-lengths)
+        hist                (doto (charts/histogram firstborns :legend true)
+                              (charts/add-histogram others))]
     (doto (.getPlot hist)
       (.setRenderer (ClusteredXYBarRenderer.)))
     (ic/view hist)))
