@@ -5,7 +5,10 @@
             [incanter.charts :as charts])
   (:import  (org.jfree.chart.renderer.xy ClusteredXYBarRenderer)))
 
-(defn alive-histogram []
+;; A histogram chart example
+;; lein run -m thinkstats.exercises.ex-histogram
+
+(defn hist-1 []
   (let [data (lengths (dataset :alive))
         hist (charts/histogram data)]
     (ic/view hist)))
@@ -25,6 +28,9 @@
       (.setRenderer (ClusteredXYBarRenderer.)))
     (ic/view hist)))
 
+(defn -main []
+  (hist-1)
+  (hist-2))
 
 
 
