@@ -15,7 +15,7 @@
 (def maphash (comp (partial into {}) map))
 
 (defn normalize [hist]
-  (let [total (float (reduce + (vals hist)))]
+  (let [total (reduce + (vals hist))]
     (maphash (fn [[x f]] [x (/ f total)]) hist)))
 
 (defn remaining-lifetimes [lifetimes t0]
@@ -23,7 +23,7 @@
                       (filter #(<= t0 %) (keys lifetimes)))))
 
 (defn ex-2-4 []
-  (let [lengths   (first (pregnancy-lengths))
+  (let [lengths   (map float (first (pregnancy-lengths)))
         hist      (frequencies lengths)
         lifetimes (normalize hist)]
     (loop [T [30 33 36 39 42] plot nil]
