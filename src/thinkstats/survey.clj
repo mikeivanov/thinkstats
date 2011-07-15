@@ -85,6 +85,9 @@
     (and (< 25 x) (<= x 45))))
 
 (defn pregnancy-lengths []
+  (lengths (filter with-reasonable-preg-length? (dataset :alive))))
+
+(defn pregnancy-lengths-partitioned []
   (let [records    (filter with-reasonable-preg-length? (dataset :alive))
         firstborns (group-by firstborn? records)
         fb         (lengths (firstborns true))
