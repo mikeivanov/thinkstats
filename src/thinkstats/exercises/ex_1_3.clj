@@ -26,18 +26,17 @@
 ;; Modify the loop to partition the live birth records into two groups,
 ;; one for first babies and one for the others.
 
-(defn partition-firstborns [records]
-  (loop [firstborns []
-         others     []
-         records    records]
-    (if-let [rec (first records)]
-      (if (= 1 (:birthord rec))
-        (recur (cons rec firstborns) others (rest records))
-        (recur firstborns (cons rec others) (rest records)))
-      [firstborns others])))
+(defn firstborn? [rec]
+  (= 1 (:birthord rec)))
+
+(defn split-firstborns [records]
+  (->> records
+       (sort-by firstborn?)
+       (reverse)
+       (split-with firstborn?)))
 
 (defn ex-1-3-3 [records]
-  (let [[firstborns others] (partition-firstborns (filter alive? records))]
+  (let [[firstborns others] (split-firstborns (filter alive? records))]
     (println (format "Number of firstborns=%d, other babies=%d"
                      (count firstborns)
                      (count others)))))
@@ -55,7 +54,7 @@
   (/ (reduce + t) (count t)))
 
 (defn ex-1-3-4 [records]
-  (let [[firstborns others] (partition-firstborns (filter alive? records))
+  (let [[firstborns others] (split-firstborns (filter alive? records))
         mu1                 (avg (pregnancy-lengths firstborns))
         mu2                 (avg (pregnancy-lengths others))
         diff-weeks          (abs (- mu1 mu2))
