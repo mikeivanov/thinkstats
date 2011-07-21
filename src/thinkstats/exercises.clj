@@ -13,6 +13,7 @@
   (ex ex-1-3)
   (ex ex-2-1)
   (ex ex-2-3)
+  (ex ex-histogram)
   (ex ex-2-4)
   (ex ex-2-5))
 
