@@ -23,7 +23,7 @@
   (let [data  (lengths (dataset :alive))
         hist  (frequencies data)
         modes (all-modes hist)]
-    (println (format "Mode=%d, all modes=%s"
+    (println (format "Mode=%f, all modes=%s"
                      (mode hist)
                      (apply str (interpose ", " (map str modes)))))))
 
