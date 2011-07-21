@@ -1,7 +1,7 @@
 (ns thinkstats.exercises.ex-2-5
   (:use clojure.contrib.generic.math-functions
         [thinkstats.survey :only (pregnancy-lengths)]
-        [thinkstats.stats  :only (mean variance)]))
+        [thinkstats.stats  :only (mean variance sum normalize)]))
 
 ;; Run as:
 ;;     lein run -m thinkstats.exercises.ex-2-5
@@ -9,14 +9,6 @@
 ;; 2.5 ----------------------------------------------------------------------
 ;; Write functions called PmfMean and PmfVar that take a Pmf object and
 ;; compute the mean and variance.
-
-(def maphash (comp (partial into {}) map))
-
-(def sum (partial reduce +))
-
-(defn normalize [hist]
-  (let [total (sum (vals hist))]
-    (maphash (fn [[x f]] [x (/ f total)]) hist)))
 
 (defn pmf-mean [pmf]
   (sum (map (fn [[x p]] (* x p)) pmf)))
