@@ -102,14 +102,15 @@
        (split-with firstborn?)))
 
 (defn lengths [records]
-  (map :prglength records))
+  (map (comp float :prglength) records))
 
 (defn pregnancy-lengths []
   (lengths (dataset :alive :reasonable-length)))
 
 (defn pregnancy-lengths-split []
-  (map lengths (split-with firstborn?
-                           (dataset :alive :reasonable-length))))
+  (->> (dataset :alive :reasonable-length)
+       (split-firstborns)
+       (map lengths)))
 
 
 

@@ -23,8 +23,8 @@
                       (filter #(<= t0 %) (keys lifetimes)))))
 
 (defn ex-2-4 []
-  (let [lengths   (map float (pregnancy-lengths))
-        hist      (frequencies lengths)
+  (let [lens      (pregnancy-lengths)
+        hist      (frequencies lens)
         lifetimes (normalize hist)]
     (loop [T [30 33 36 39 42] plot nil]
       (if (seq T)
