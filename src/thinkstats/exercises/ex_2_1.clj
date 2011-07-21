@@ -1,7 +1,7 @@
 (ns thinkstats.exercises.ex-2-1
   (:use thinkstats.stats
         clojure.contrib.generic.math-functions
-        [thinkstats.survey :only (dataset firstborn? lengths)]))
+        [thinkstats.survey :only (dataset split-firstborns lengths)]))
 
 ;; Run it as:
 ;;     lein run -m thinkstats.exercises.ex-2-1
@@ -33,10 +33,10 @@
     stdev))
 
 (defn ex-2-1-2 []
-  (let [firstborns    (group-by firstborn? (dataset :alive))
-        f-dev         (stdev (lengths (firstborns true)))
-        o-dev         (stdev (lengths (firstborns false)))
-        diff          (abs (- f-dev o-dev))]
+  (let [[f o]  (map lengths (split-firstborns (dataset :alive)))
+        f-dev  (stdev f)
+        o-dev  (stdev o)
+        diff   (abs (- f-dev o-dev))]
     (println (format (str "Standard deviations of gestation time:\n"
                           "   firstborns=%f\n"
                           "   others=%f\n"
