@@ -19,7 +19,7 @@
     [mu var]))
 
 (defn ex-2-5 []
-  (let [lengths (map float (pregnancy-lengths))
+  (let [lengths (pregnancy-lengths)
         [m1 v1] (variance lengths)
         [m2 v2] (pmf-variance (normalize (frequencies lengths)))]
     (println (format (str "m1=%f, m2=%f, diff=%f\n"

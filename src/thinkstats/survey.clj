@@ -13,7 +13,7 @@
 		   (:outcome,     277, 277, :int)
 		   (:birthord,    278, 279, :int)
 		   (:agepreg,     284, 287, :int)
-		   (:finalwgt,    423, 440, :float)))
+		   (:finalwgt,    423, 440, :double)))
 
 ;; table parsing -------------------------------------------------------------
 
@@ -25,9 +25,9 @@
     (catch NumberFormatException _
       :NA)))
 
-(defmethod parse-field :float [s _]
+(defmethod parse-field :double [s _]
   (try
-    (Float/parseFloat (.trim s))
+    (Double/parseDouble (.trim s))
     (catch NumberFormatException _
       :NA)))
 
@@ -102,7 +102,7 @@
        (split-with firstborn?)))
 
 (defn lengths [records]
-  (map (comp float :prglength) records))
+  (map (comp double :prglength) records))
 
 (defn pregnancy-lengths []
   (lengths (dataset :alive :reasonable-length)))

@@ -48,7 +48,7 @@
 (defn pregnancy-lengths [records]
   (->> records
        (map :prglength)
-       (map float)))
+       (map double)))
 
 (defn avg [t]
   (/ (reduce + t) (count t)))
