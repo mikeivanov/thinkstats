@@ -20,3 +20,5 @@
     (maphash (fn [[x f]] [x (/ f total)])
              hist)))
 
+(def pmf (comp normalize frequencies))
+
