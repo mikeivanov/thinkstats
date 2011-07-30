@@ -22,3 +22,15 @@
 
 (def pmf (comp normalize frequencies))
 
+(defn pmf-mean [pmf]
+  (->> pmf
+       (map (fn [[x p]] (* x p)))
+       (sum)))
+
+(defn pmf-variance [pmf & [mu]]
+  (let [mu  (or mu (pmf-mean pmf))
+        var (->> pmf
+                 (map (fn [[x p]] (* p (sqr (- x mu)))))
+                 (sum))]
+    [mu var]))
+
