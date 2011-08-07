@@ -33,8 +33,6 @@
     (do
       (line-chart fh oh "Histogram" "Frequency")
       (line-chart fp op "PMF" "Probability")
-      (println (type (first dw)))
-      (println (type (first (keys fp))))
       (-> (charts/xy-plot dw dp
                           :legend true
                           :title "Difference in PMFs"
