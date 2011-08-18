@@ -20,5 +20,7 @@
   (ex ex-2-8)
   (ex ex-2-7)
   (ex ex-3-1)
-  (ex ex-3-2))
+  (ex ex-3-2)
+  (ex ex-3-3)
+  (ex ex-3-4))
 
