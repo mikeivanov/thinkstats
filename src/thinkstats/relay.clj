@@ -1,6 +1,5 @@
 (ns thinkstats.relay
   (:use incanter.core
-        [clojure.contrib.def :only (defnk)]
         [clojure.contrib.duck-streams :only (read-lines)]))
 
 ;; Data format:
@@ -30,9 +29,10 @@
 (def *run-results-url*
   "http://coolrunning.com/results/10/ma/Apr25_27thAn_set1.shtml")
 
-(defnk speeds []
+(defn speeds []
   (->> *run-results-url*
        get-input-reader
        read-lines
        (keep parse-record)
        (map pace-to-speed)))
+
