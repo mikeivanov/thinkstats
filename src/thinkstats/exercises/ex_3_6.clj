@@ -13,27 +13,19 @@
 ;; How big is the difference between your percentile ranks in the two
 ;; distributions?
 
-(defn weight-kg [rec]
-  ($= (:birthwgt_lb rec) * 0.45359237 +
-      (:birthwgt_oz rec) * 0.0283495231))
-
-(defn weights [recs]
-  (->> recs
-       (map weight-kg)
-       (filter (complement nil?))
-       (filter #(<= 3.0 % 5.0))))
-
-(def *my-weight* 3.950)
-
 (defn percentile-rank [t x]
   (* 100.0 (probability (cdf t) x)))
 
+(defn weight-percentile-rank [recs weight]
+  (percentile-rank (survey/weights recs) weight))
+  
+(def *my-weight* 3.950)
+
 (defn ex-3-6 []
   (let [pool      (survey/dataset :alive)
-        rank-pool (percentile-rank (weights pool)
-                                   *my-weight*)
-        rank-fb   (percentile-rank (weights (filter survey/firstborn? pool))
-                                   *my-weight*)]
+        rank-pool (weight-percentile-rank pool *my-weight*)
+        rank-fb   (weight-percentile-rank (filter survey/firstborn? pool)
+                                          *my-weight*)]
     (println (format (str "My percentile rank=%f, "
                           "among firstborns=%f, "
                           "difference=%f")

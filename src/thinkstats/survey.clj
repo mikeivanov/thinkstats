@@ -23,13 +23,13 @@
   (try
     (Integer/parseInt (.trim s))
     (catch NumberFormatException _
-      :NA)))
+      nil)))
 
 (defmethod parse-field :double [s _]
   (try
     (Double/parseDouble (.trim s))
     (catch NumberFormatException _
-      :NA)))
+      nil)))
 
 (defn parse-record [fields line]
   (apply merge
@@ -49,7 +49,7 @@
   (lazy-seq
    (when-let [line (first lines)]
      (cons (parse-record fields line)
-	   (parse-table fields (rest lines))))))
+           (parse-table fields (rest lines))))))
 
 (defn open-resource [name]
   (let [rsc (str "thinkstats/survey/" name)
@@ -111,6 +111,19 @@
   (->> (dataset :alive :reasonable-length)
        (split-firstborns)
        (map lengths)))
+
+(defn weight-kg [rec]
+  (let [lb (:birthwgt_lb rec)
+        oz (:birthwgt_oz rec)]
+    (if-not (every? nil? [lb oz])
+      (+ (* (or lb 0) 0.45359237)
+         (* (or oz 0) 0.0283495231)))))
+
+(defn weights [recs]
+  (->> recs
+       (map weight-kg)
+       (filter (complement nil?))
+       (filter #(<= 2.5 % 5.5))))
 
 
 
