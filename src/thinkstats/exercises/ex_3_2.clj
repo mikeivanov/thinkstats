@@ -1,6 +1,6 @@
 (ns thinkstats.exercises.ex-3-2
   (:use incanter.core
-	[thinkstats.relay :only (speeds)]
+	[thinkstats.relay :only (race-dataset)]
         [thinkstats.stats  :only (maphash pmf normalize)])
   (:require [incanter.charts :as charts]))
 
@@ -21,13 +21,14 @@
 ;; Compute the distribution of speeds you would observe if you ran a
 ;; relay race at 7.5 MPH with this group of runners.
 
-(def *observer-speed* 7.5)
+(def observer-speed 7.5)
 
 (defn observer-bias [speed prob]
-  (abs ($= prob * (speed - *observer-speed*))))
+  (abs ($= prob * (speed - observer-speed))))
 
 (defn ex-3-2 []
-  (let [actual   (pmf (speeds))
+  (let [speeds ($ :speed (race-dataset))
+        actual (pmf speeds)
         observed (bias-pmf observer-bias actual)]
     (-> (charts/xy-plot (keys actual)
                         (vals actual)

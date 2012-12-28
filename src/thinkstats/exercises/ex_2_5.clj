@@ -1,7 +1,6 @@
 (ns thinkstats.exercises.ex-2-5
-  (:use clojure.contrib.generic.math-functions
-        [thinkstats.survey :only (pregnancy-lengths)]
-        [thinkstats.stats  :only (mean variance sum normalize)]))
+  (:use [thinkstats.survey :only (pregnancy-lengths)]
+        [thinkstats.stats  :only (sqr mean variance sum normalize)]))
 
 ;; Run as:
 ;;     lein run -m thinkstats.exercises.ex-2-5

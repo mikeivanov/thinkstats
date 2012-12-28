@@ -1,8 +1,6 @@
 (ns thinkstats.survey
-  (:use clojure.contrib.math
-	[clojure.contrib.duck-streams :only (read-lines)])
-  (:import (java.io FileInputStream)
-	   (java.util.zip GZIPInputStream)))
+  (:use thinkstats.utils)
+  (:import (java.util.zip GZIPInputStream)))
 
 (def preg-fields '((:caseid,        1,  12, :int)
 		   (:nbrnaliv,     22,  22, :int)

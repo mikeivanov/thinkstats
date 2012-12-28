@@ -19,13 +19,13 @@
 (defn weight-percentile-rank [recs weight]
   (percentile-rank (survey/weights recs) weight))
   
-(def *my-weight* 3.950)
+(def my-weight 3.950)
 
 (defn ex-3-6 []
   (let [pool      (survey/dataset :alive)
-        rank-pool (weight-percentile-rank pool *my-weight*)
+        rank-pool (weight-percentile-rank pool my-weight)
         rank-fb   (weight-percentile-rank (filter survey/firstborn? pool)
-                                          *my-weight*)]
+                                          my-weight)]
     (println (format (str "My percentile rank=%f, "
                           "among firstborns=%f, "
                           "difference=%f")

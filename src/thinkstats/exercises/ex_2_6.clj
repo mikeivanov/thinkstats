@@ -1,6 +1,5 @@
 (ns thinkstats.exercises.ex-2-6
-  (:use clojure.contrib.generic.math-functions
-        [thinkstats.survey :only (pregnancy-lengths-split)]
+  (:use [thinkstats.survey :only (pregnancy-lengths-split)]
         [thinkstats.stats  :only (normalize)])
   (:require [incanter.core   :as ic]
             [incanter.charts :as charts]))

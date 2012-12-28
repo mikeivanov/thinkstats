@@ -1,7 +1,8 @@
-(ns thinkstats.stats
-  (:use clojure.contrib.generic.math-functions))
+(ns thinkstats.stats)
 
 (def sum (partial reduce +))
+
+(defn sqr [x] (* x x))
 
 (defn mean [t]
   (/ (sum t)
@@ -103,4 +104,7 @@
   MakeCDF
   (cdf [histogram]
     (make-cdf histogram)))
+
+(defn percentile-rank [cdf x]
+  (* 100.0 (probability cdf x)))
 

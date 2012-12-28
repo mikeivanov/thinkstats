@@ -1,6 +1,7 @@
 (ns thinkstats.relay
   (:use incanter.core
-        [clojure.contrib.duck-streams :only (read-lines)]))
+        thinkstats.utils
+        [clojure.string :only [trim]]))
 
 ;; Data format:
 ;; Place Div/Tot  Div   Guntime Nettime  Pace  Name ...

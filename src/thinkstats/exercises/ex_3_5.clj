@@ -1,6 +1,6 @@
 (ns thinkstats.exercises.ex-3-5
   (:use incanter.core
-        [thinkstats.relay :only (speeds)]
+        [thinkstats.relay :only (race-dataset)]
         [thinkstats.stats :only (cdf items)])
   (:require [incanter.charts :as charts]))
 
@@ -11,9 +11,9 @@
 ;; Generate a plot that shows the CDF of running speeds.
 
 (defn ex-3-5 []
-  (let [data (speeds)
-        cdf  (cdf data)
-        ds   (dataset ["speed" "cdf"] (items cdf))]
+  (let [speed ($ :speed (race-dataset))
+        cdf (cdf speed)
+        ds (dataset ["speed" "cdf"] (items cdf))]
     (with-data ds
       (view (charts/xy-plot :speed :cdf)))))
 

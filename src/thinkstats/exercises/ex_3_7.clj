@@ -16,12 +16,12 @@
   (* 100.0 (probability cdf x)))
 
 ;; it becomes more interesting as the sample size increases
-(def *sample-size* 20)
+(def sample-size 20)
 
 (defn ex-3-7 []
   (let [weights    (survey/weights (survey/dataset :alive))
         weight-cdf (cdf weights)
-        sample     (take *sample-size* weights)
+        sample     (take sample-size weights)
         ranks      (map #(percentile-rank weight-cdf %) sample)
         rank-cdf   (cdf ranks)]
     (view (charts/xy-plot (:values rank-cdf)
@@ -31,4 +31,3 @@
 
 (defn -main []
   (ex-3-7))
-

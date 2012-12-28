@@ -1,5 +1,5 @@
 (ns thinkstats.exercises.ex-3-4
-  (:use clojure.contrib.generic.math-functions))
+  (:require [clojure.math.numeric-tower :as math]))
 
 ;; Run as:
 ;;     lein run -m thinkstats.exercises.ex-3-4
@@ -44,7 +44,7 @@
 (defn percentile [scores percentile-rank]
   (let [rank   (/ percentile-rank 100.0)
         topidx (- (count scores) 1)
-        index  (round (* rank topidx))]
+        index  (math/round (* rank topidx))]
     (select-kth-smallest scores index)))
 
 (defn ex-3-4 []

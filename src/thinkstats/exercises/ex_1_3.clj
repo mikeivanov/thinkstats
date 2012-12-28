@@ -1,6 +1,6 @@
 (ns thinkstats.exercises.ex-1-3
-  (:use clojure.contrib.generic.math-functions
-        [thinkstats.survey :only (dataset)]))
+  (:use [thinkstats.survey :only (dataset)])
+  (:require [clojure.math.numeric-tower :as math]))
 
 ;; Run it as:
 ;;     lein run -m thinkstats.exercises.ex-1-3
@@ -57,7 +57,7 @@
   (let [[firstborns others] (split-firstborns (filter alive? records))
         mu1                 (avg (pregnancy-lengths firstborns))
         mu2                 (avg (pregnancy-lengths others))
-        diff-weeks          (abs (- mu1 mu2))
+        diff-weeks          (math/abs (- mu1 mu2))
         diff-hours          (* diff-weeks 24 7)]
     (println (format (str "Average pregnancy length\n"
                           "    for firstborns=%f weeks\n"

@@ -1,6 +1,5 @@
 (ns thinkstats.exercises.ex-2-3
   (:use thinkstats.stats
-        clojure.contrib.generic.math-functions
         [thinkstats.survey :only (dataset lengths)]))
 
 ;; Run as:

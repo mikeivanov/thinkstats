@@ -1,7 +1,7 @@
 (ns thinkstats.exercises.ex-2-1
   (:use thinkstats.stats
-        clojure.contrib.generic.math-functions
-        [thinkstats.survey :only (dataset split-firstborns lengths)]))
+        [thinkstats.survey :only (dataset split-firstborns lengths)])
+  (:require [clojure.math.numeric-tower :as math]))
 
 ;; Run it as:
 ;;     lein run -m thinkstats.exercises.ex-2-1
@@ -17,7 +17,7 @@
 
 (defn ex-2-1-1 [t]
   (let [[mu var] (variance t)
-        stdev    (sqrt var)]
+        stdev    (math/sqrt var)]
     (println (format (str "Pumpkin weights:\n"
                           "  mean=%f\n"
                           "  variance=%f\n"
@@ -29,14 +29,14 @@
 
 (defn stdev [t]
   (let [[mu var] (variance t)
-        stdev    (sqrt var)]
+        stdev    (math/sqrt var)]
     stdev))
 
 (defn ex-2-1-2 []
   (let [[f o]  (map lengths (split-firstborns (dataset :alive)))
         f-dev  (stdev f)
         o-dev  (stdev o)
-        diff   (abs (- f-dev o-dev))]
+        diff   (math/abs (- f-dev o-dev))]
     (println (format (str "Standard deviations of gestation time:\n"
                           "   firstborns=%f\n"
                           "   others=%f\n"
