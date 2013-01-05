@@ -1,5 +1,5 @@
 (ns thinkstats.exercises.ex-4-1
-  (:import org.jfree.chart.axis.LogAxis)
+  (:use [thinkstats.charts :only [log-scale-y]])
   (:require [thinkstats.stats :as stats]
             [thinkstats.babyboom :as data]
             [incanter.core :as ic]
@@ -22,12 +22,6 @@
                       :y-label "Probability")
       (charts/add-lines ax ay
                         :series-label "Actual")))
-
-(defn log-scale-y [chart]
-  (let [plot (.getPlot chart)
-        axis (LogAxis.)]
-    (.setRangeAxis plot 0 axis))
-  chart)
 
 (defn plot-cdfs [model actual]
   (-> (plot-intervals (stats/components model)

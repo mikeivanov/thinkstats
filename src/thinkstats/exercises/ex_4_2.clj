@@ -1,5 +1,6 @@
 (ns thinkstats.exercises.ex-4-2
-  (:use thinkstats.utils)
+  (:use thinkstats.utils
+        [thinkstats.charts :only [log-scale-y]])
   (:import org.jfree.chart.axis.LogAxis)
   (:require [thinkstats.stats :as stats]
             [thinkstats.presidents :as data]
@@ -27,12 +28,6 @@
                   :title title
                   :x-label "Years"
                   :y-label "Probability"))
-
-(defn log-scale-y [chart]
-  (let [plot (.getPlot chart)
-        axis (LogAxis.)]
-    (.setRangeAxis plot 0 axis))
-  chart)
 
 (defn ex-4-2 []
   (let [cdf (->> (data/dataset)
