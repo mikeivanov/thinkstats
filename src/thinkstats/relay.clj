@@ -47,9 +47,8 @@
                \s*$")
 
 (def ^:dynamic *run-results-url*
-  ;;"http://coolrunning.com/results/10/ma/Apr25_27thAn_set1.shtml"
-  "/Users/mike/projects/thinkstats/book/workspace.thinkstats/ThinkStats/Apr25_27thAn_set1.shtml"
-  )
+  ;; http://coolrunning.com/results/10/ma/Apr25_27thAn_set1.shtml
+  (str (cwd) "/book/workspace.thinkstats/ThinkStats/Apr25_27thAn_set1.shtml"))
 
 (defn race-dataset [& [url]]
   (let [url (or url *run-results-url*)
