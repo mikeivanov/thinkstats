@@ -1,7 +1,6 @@
 (ns thinkstats.babyboom
   (:import java.lang.Math)
-  (:use thinkstats.utils
-        [clojure.string :only [trim]])
+  (:use thinkstats.utils)
   (:require [incanter.core :as ic]))
 
 ;; Data format:
@@ -32,5 +31,8 @@
        (ic/dataset [:hh :mm :sex :weight :minutes])))
 
 (defn intervals [ds]
-  (let [minutes (ic/$ :minutes ds)]
-    (map #(- %2 %1) minutes (drop 1 minutes))))
+  (->> ds
+       (ic/$ :minutes)
+       (reverse)
+       (pairwise)
+       (map (partial apply -))))

@@ -9,3 +9,6 @@
 (defn parse-int [s]
   (Integer/parseInt (.trim s)))
 
+(defn pairwise [seq]
+  (map vector seq (drop 1 seq)))
+

@@ -1,4 +1,5 @@
 (ns thinkstats.exercises.ex-4-2
+  (:use thinkstats.utils)
   (:import org.jfree.chart.axis.LogAxis)
   (:require [thinkstats.stats :as stats]
             [thinkstats.presidents :as data]
@@ -10,9 +11,6 @@
 ;;     lein run -m thinkstats.exercises.ex-4-2
 
 ;; Plot the CDF of the interarrival times and the CCDF on a log-y scale.
-
-(defn pairwise [seq]
-  (map vector seq (drop 1 seq)))
 
 (defn intervals [ds]
   (->> ds
