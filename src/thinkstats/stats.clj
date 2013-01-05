@@ -53,7 +53,9 @@
 (defprotocol CDFOps
   (probability [this x])
   (value [this p])
-  (items [this]))
+  (items [this])
+  (components [this])
+  (complementary [this]))
 
 (defrecord CDF [values probabilities]
   CDFOps
@@ -75,7 +77,14 @@
                       (get values index)))))
 
   (items [this]
-    (map vector values probabilities)))
+    (map vector values probabilities))
+
+  (components [this]
+    [(:values this) (:probabilities this)])
+
+  (complementary [this]
+    (CDF. (:values this)
+          (map (partial - 1) (:probabilities this)))))
 
 (defn- make-cdf [histogram]
   (let [size (count histogram)]

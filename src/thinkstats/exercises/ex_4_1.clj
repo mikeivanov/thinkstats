@@ -23,15 +23,6 @@
       (charts/add-lines ax ay
                         :series-label "Actual")))
 
-(defn cdf-data [cdf]
-  [(:values cdf) (:probabilities cdf)])
-    
-(def complement-to-1 (partial - 1))
-
-(defn cdf-complement [cdf]
-  [(drop-last (:values cdf))
-   (map complement-to-1 (drop-last (:probabilities cdf)))])
-        
 (defn log-scale-y [chart]
   (let [plot (.getPlot chart)
         axis (LogAxis.)]
@@ -39,14 +30,18 @@
   chart)
 
 (defn plot-cdfs [model actual]
-  (-> (plot-intervals (cdf-data model)
-                      (cdf-data actual)
+  (-> (plot-intervals (stats/components model)
+                      (stats/components actual)
                       "CDF")
       (ic/view)))
 
+(def complementary-components (comp (partial map drop-last)
+                                    stats/components
+                                    stats/complementary))
+
 (defn plot-ccdfs [model actual]
-  (-> (plot-intervals (cdf-complement model)
-                      (cdf-complement actual)
+  (-> (plot-intervals (complementary-components model)
+                      (complementary-components actual)
                       "CCDF")
       (log-scale-y)
       (ic/view)))

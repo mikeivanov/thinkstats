@@ -21,19 +21,12 @@
        (pairwise)
        (map (partial apply -))))
 
-(defn plot-intervals [[x y] title]
+(defn plot-intervals [title [x y]]
   (charts/xy-plot x y
                   :legend false
                   :title title
                   :x-label "Years"
                   :y-label "Probability"))
-
-(defn cdf-data [cdf]
-  [(:values cdf) (:probabilities cdf)])
-
-(defn cdf-complement [cdf]
-  [(drop-last (:values cdf))
-   (map (partial - 1) (drop-last (:probabilities cdf)))])
 
 (defn log-scale-y [chart]
   (let [plot (.getPlot chart)
@@ -46,13 +39,17 @@
                  (intervals)
                  (stats/cdf))]
     (do
-      (-> (cdf-data cdf)
-          (plot-intervals "CDF")
-          (ic/view))
-      (-> (cdf-complement cdf)
-          (plot-intervals "CCDF")
-          (log-scale-y)
-          (ic/view)))))
+      (->> cdf
+           (stats/components)
+           (plot-intervals "CDF")
+           (ic/view))
+      (->> cdf
+           (stats/complementary)
+           (stats/components)
+           (map drop-last)
+           (plot-intervals "CCDF")
+           (log-scale-y)
+           (ic/view)))))
 
 (defn -main []
   (ex-4-2)
