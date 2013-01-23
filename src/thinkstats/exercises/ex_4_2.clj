@@ -1,7 +1,6 @@
 (ns thinkstats.exercises.ex-4-2
   (:use thinkstats.utils
         [thinkstats.charts :only [log-scale-y]])
-  (:import org.jfree.chart.axis.LogAxis)
   (:require [thinkstats.stats :as stats]
             [thinkstats.presidents :as data]
             [incanter.core :as ic]

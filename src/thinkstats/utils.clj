@@ -10,5 +10,6 @@
   (Integer/parseInt (.trim s)))
 
 (defn pairwise [seq]
-  (map vector seq (drop 1 seq)))
+  ;map vector seq (drop 1 seq)))
+  (partition 2 1 seq))
 

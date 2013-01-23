@@ -1,5 +1,4 @@
 (ns thinkstats.babyboom
-  (:import java.lang.Math)
   (:use thinkstats.utils)
   (:require [incanter.core :as ic]))
 
