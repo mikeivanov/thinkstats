@@ -11,10 +11,6 @@
 
 ;; Write a wrapper function named paretovariate that takes α and xm as parameters
 
-(defn uniform [a b]
-  (let [uni (dist/uniform-distribution a b)]
-    (repeatedly #(.draw uni))))
-
 (defn pareto-inv [alpha xm u]
   (/ xm (ic/pow u (/ 1.0 alpha))))
 
